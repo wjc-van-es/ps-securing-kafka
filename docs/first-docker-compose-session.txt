@@ -1,0 +1,176 @@
+ willem@linux-laptop:~/git/ps-securing-kafka$ docker compose up -d
+ ### A lot of pulling of image layers for quite some time
+ ### These versions of Kafka & zookeeper are quite a bit older as the ones from the confluent images
+ ### confluentinc/cp-zookeeper:7.2.1 and confluentinc/cp-kafka:7.2.1 we are currently testing with the other projects
+ ⠿ zookeeper-2 Pulled                                                                                                                                                                                                            481.1s
+ ⠿ broker-1 Pulled                                                                                                                                                                                                               437.3s
+[+] Running 7/7
+ ⠿ Network ps-securing-kafka_default  Created                                                                                                                                                                                      0.0s
+ ⠿ Container zookeeper-2              Started                                                                                                                                                                                      1.0s
+ ⠿ Container zookeeper-3              Started                                                                                                                                                                                      1.0s
+ ⠿ Container zookeeper-1              Started                                                                                                                                                                                      0.8s
+ ⠿ Container broker-3                 Started                                                                                                                                                                                      1.2s
+ ⠿ Container broker-2                 Started                                                                                                                                                                                      1.4s
+ ⠿ Container broker-1                 Started                                                                                                                                                                                      1.4s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose ps
+NAME                COMMAND                  SERVICE             STATUS              PORTS
+broker-1            "/docker-entrypoint.…"   broker-1            running             0.0.0.0:9091->9091/tcp, :::9091->9091/tcp
+broker-2            "/docker-entrypoint.…"   broker-2            running             0.0.0.0:9092->9092/tcp, :::9092->9092/tcp
+broker-3            "/docker-entrypoint.…"   broker-3            running             0.0.0.0:9093->9093/tcp, :::9093->9093/tcp
+zookeeper-1         "/docker-entrypoint.…"   zookeeper-1         running             8080/tcp
+zookeeper-2         "/docker-entrypoint.…"   zookeeper-2         running             8080/tcp
+zookeeper-3         "/docker-entrypoint.…"   zookeeper-3         running             8080/tcp
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker kafka-topics --bootstrap-server broker:9092 --list
+Error: No such container: broker
+                                                                                                                                                                                  1.9s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker-2 kafka-topics --bootstrap-server broker-2:9092 --list
+[2022-08-28 19:33:28,870] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (broker-2/172.21.0.7:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2022-08-28 19:33:28,974] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (broker-2/172.21.0.7:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+### interrupted wit CTRL-C
+
+willem@linux-laptop:~/git/ps-securing-kafka$ docker network ls
+NETWORK ID     NAME                        DRIVER    SCOPE
+cb49c675e04f   bridge                      bridge    local
+fb9f07672f4c   host                        host      local
+f22bbd812450   none                        null      local
+c30c05b9cb23   ps-securing-kafka_default   bridge    local
+willem@linux-laptop:~/git/ps-securing-kafka$ docker network inspect ps-securing-kafka_default
+[
+    {
+        "Name": "ps-securing-kafka_default",
+        "Id": "c30c05b9cb23370c741a01d913b8ee1587d9dc8db4d7115b552f16f258a6fda2",
+        "Created": "2022-08-28T21:33:07.981604624+02:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.21.0.0/16",
+                    "Gateway": "172.21.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.network": "default",
+            "com.docker.compose.project": "ps-securing-kafka",
+            "com.docker.compose.version": "2.6.0"
+        }
+    }
+]
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker kafka-topics --bootstrap-server broker-2:9092 --list
+Error: No such container: broker
+
+### We tried updated the images of the docker-compose.yaml file, but then the zookeeper containers kept exiting.
+### So for now the image updates were reversed
+
+### Starting up the producer didn´t work either, but after we added the following to /etc/hosts:
+# Adding broker-1, broker-2 & broker-3 for PS-securing-kafka
+127.0.0.1   broker-1
+127.0.0.1   broker-2
+127.0.0.1   broker-3
+### both BasicProducer and BasicConsumer could be started and apparently the basic-topic was created in the process
+### So a topic auto-create (or some such) setting was probably enabled
+
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker-2 kafka-topics --bootstrap-server broker-2:9092 --list
+OCI runtime exec failed: exec failed: unable to start container process: exec: "kafka-topics": executable file not found in $PATH: unknown
+
+### What works with the Confluent Community Platform docker compose set up apparently doesn´t work for this one
+### So let's run one docker broker container interactively to find the kafka-topics script
+
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec -it broker-1 bash
+[kafka@broker-1 ~]$ pwd
+/kafka
+[kafka@broker-1 ~]$ ls -la
+total 84
+drwxrwxrwx 1 kafka kafka  4096 Oct 10  2020 .
+drwxr-xr-x 1 root  root   4096 Aug 28 19:48 ..
+-rw-rw-rw- 1 kafka kafka    18 Apr  1  2020 .bash_logout
+-rw-rw-rw- 1 kafka kafka   193 Apr  1  2020 .bash_profile
+-rw-rw-rw- 1 kafka kafka   231 Apr  1  2020 .bashrc
+-rw-rw-rw- 1 root  root  29975 Jul 28  2020 LICENSE
+-rw-rw-rw- 1 root  root    337 Jul 28  2020 NOTICE
+drwxrwxrwx 1 root  root   4096 Jul 28  2020 bin
+drwxrwxrwx 1 root  root   4096 Aug 28 19:48 config
+drwxrwxrwx 1 kafka kafka  4096 Oct 10  2020 config.orig
+drwxrwxrwx 1 kafka kafka  4096 Oct 10  2020 data
+drwxrwxrwx 1 root  root   4096 Oct 10  2020 libs
+drwxrwxrwx 1 kafka kafka  4096 Aug 28 20:14 logs
+[kafka@broker-1 ~]$ cd bin
+[kafka@broker-1 bin]$ ls -la
+total 152
+drwxrwxrwx 1 root  root   4096 Jul 28  2020 .
+drwxrwxrwx 1 kafka kafka  4096 Oct 10  2020 ..
+-rwxrwxrwx 1 root  root   1423 Jul 28  2020 connect-distributed.sh
+-rwxrwxrwx 1 root  root   1396 Jul 28  2020 connect-mirror-maker.sh
+-rwxrwxrwx 1 root  root   1420 Jul 28  2020 connect-standalone.sh
+-rwxrwxrwx 1 root  root    861 Jul 28  2020 kafka-acls.sh
+-rwxrwxrwx 1 root  root    873 Jul 28  2020 kafka-broker-api-versions.sh
+-rwxrwxrwx 1 root  root    864 Jul 28  2020 kafka-configs.sh
+-rwxrwxrwx 1 root  root    945 Jul 28  2020 kafka-console-consumer.sh
+-rwxrwxrwx 1 root  root    944 Jul 28  2020 kafka-console-producer.sh
+-rwxrwxrwx 1 root  root    871 Jul 28  2020 kafka-consumer-groups.sh
+-rwxrwxrwx 1 root  root    948 Jul 28  2020 kafka-consumer-perf-test.sh
+-rwxrwxrwx 1 root  root    871 Jul 28  2020 kafka-delegation-tokens.sh
+-rwxrwxrwx 1 root  root    869 Jul 28  2020 kafka-delete-records.sh
+-rwxrwxrwx 1 root  root    866 Jul 28  2020 kafka-dump-log.sh
+-rwxrwxrwx 1 root  root    870 Jul 28  2020 kafka-leader-election.sh
+-rwxrwxrwx 1 root  root    863 Jul 28  2020 kafka-log-dirs.sh
+-rwxrwxrwx 1 root  root    862 Jul 28  2020 kafka-mirror-maker.sh
+-rwxrwxrwx 1 root  root    886 Jul 28  2020 kafka-preferred-replica-election.sh
+-rwxrwxrwx 1 root  root    959 Jul 28  2020 kafka-producer-perf-test.sh
+-rwxrwxrwx 1 root  root    874 Jul 28  2020 kafka-reassign-partitions.sh
+-rwxrwxrwx 1 root  root    874 Jul 28  2020 kafka-replica-verification.sh
+-rwxrwxrwx 1 root  root  10074 Jul 28  2020 kafka-run-class.sh
+-rwxrwxrwx 1 root  root   1376 Jul 28  2020 kafka-server-start.sh
+-rwxrwxrwx 1 root  root   1217 Jul 28  2020 kafka-server-stop.sh
+-rwxrwxrwx 1 root  root    945 Jul 28  2020 kafka-streams-application-reset.sh
+-rwxrwxrwx 1 root  root    863 Jul 28  2020 kafka-topics.sh
+-rwxrwxrwx 1 root  root    958 Jul 28  2020 kafka-verifiable-consumer.sh
+-rwxrwxrwx 1 root  root    958 Jul 28  2020 kafka-verifiable-producer.sh
+-rwxrwxrwx 1 root  root   1714 Jul 28  2020 trogdor.sh
+drwxrwxrwx 1 root  root   4096 Jul 28  2020 windows
+-rwxrwxrwx 1 root  root    867 Jul 28  2020 zookeeper-security-migration.sh
+-rwxrwxrwx 1 root  root   1393 Jul 28  2020 zookeeper-server-start.sh
+-rwxrwxrwx 1 root  root   1221 Jul 28  2020 zookeeper-server-stop.sh
+-rwxrwxrwx 1 root  root   1019 Jul 28  2020 zookeeper-shell.sh
+[kafka@broker-1 bin]$ ./kafka-topics.sh --list
+Exception in thread "main" java.lang.IllegalArgumentException: Only one of --bootstrap-server or --zookeeper must be specified
+        at kafka.admin.TopicCommand$TopicCommandOptions.checkArgs(TopicCommand.scala:721)
+        at kafka.admin.TopicCommand$.main(TopicCommand.scala:52)
+        at kafka.admin.TopicCommand.main(TopicCommand.scala)
+
+### Wait a second, there it is:
+[kafka@broker-1 bin]$ ./kafka-topics.sh --bootstrap-server broker-1:9091 --list
+__consumer_offsets
+basic-topic
+[kafka@broker-1 bin]$ ./kafka-topics.sh --bootstrap-server broker-1:9091 --describe --topic basic-topic
+Topic: basic-topic      PartitionCount: 1       ReplicationFactor: 3    Configs: min.insync.replicas=2,segment.bytes=1073741824
+        Topic: basic-topic      Partition: 0    Leader: 1       Replicas: 1,2,3 Isr: 1,2,3
+[kafka@broker-1 bin]$ exit
+
+### This also works without opening up an interactive bash session inside the container
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker-2 kafka-topics --bootstrap-server broker-2:9092 --list
+OCI runtime exec failed: exec failed: unable to start container process: exec: "kafka-topics": executable file not found in $PATH: unknown
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker-2 /kafka/bin/kafka-topics.sh --bootstrap-server broker-2:9092 --list
+__consumer_offsets
+basic-topic
+willem@linux-laptop:~/git/ps-securing-kafka$ docker exec broker-2 /kafka/bin/kafka-topics.sh --bootstrap-server broker-2:9092 --describe --topic basic-topic
+Topic: basic-topic      PartitionCount: 1       ReplicationFactor: 3    Configs: min.insync.replicas=2,segment.bytes=1073741824
+        Topic: basic-topic      Partition: 0    Leader: 1       Replicas: 1,2,3 Isr: 1,2,3
+willem@linux-laptop:~/git/ps-securing-kafka$
+
+### So we can probably still use
+$ docker exec broker-2 /kafka/bin/kafka-topics.sh --bootstrap-server broker-2:9092 --create --topic $NAME_OF_NEW_TOPIC
+### as long as we provide the full location /kafka/bin/kafka-topics.sh as this is not added to the $PATH in the image used here.

@@ -1,0 +1,4 @@
+https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html
+https://www.misterpki.com/keytool-list-certs/
+https://docs.oracle.com/en/java/javase/17/docs/specs/man/keytool.html
+https://stackoverflow.com/questions/11617210/how-to-properly-import-a-selfsigned-certificate-into-java-keystore-that-is-avail
