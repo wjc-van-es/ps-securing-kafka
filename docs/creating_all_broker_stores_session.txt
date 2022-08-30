@@ -1,0 +1,227 @@
+### broker keystore generation failed because a consequent command would start before the previous was properly finished.
+### therefore, we inserted wait commands and added some echo commands to show clear boundaries between all steps inside
+### security/generate-keystore.sh
+
+### removing all failed broker keystores with self-signed certificates (that should have been signed with security/ca-cert
+willem@linux-laptop:~/git/ps-securing-kafka/security$ find . -type f -name 'broker*.jks' -delete
+
+### creating keystore for broker-1
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-keystore.sh broker-1
+Enter keystore password:
+Re-enter new password:
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 36,500 days
+        for: CN=broker-1, OU=Community, O=Pluralsight, L=Salt Lake City, ST=Utah, C=US
+Finished generation of keystore/broker-1.keystore.jks
+Enter keystore password:
+Finished generation of broker-1.csr
+Certificate request self-signature ok
+subject=C = US, ST = Utah, L = Salt Lake City, O = Pluralsight, OU = Community, CN = broker-1
+Enter pass phrase for ca-key:
+Finished generation of broker-1.signed
+Enter keystore password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+Finished importing ca-cert into keystore/broker-1.keystore.jks
+Enter keystore password:
+Certificate reply was installed in keystore
+Finished importing broker-1.signed into keystore/broker-1.keystore.jks
+rm: cannot remove 'ca-cert.srl': No such file or directory
+willem@linux-laptop:~/git/ps-securing-kafka/security$ find . -type f -name 'broker*.jks' -delete
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-keystore.sh broker-1
+Commencing keystore/broker-1.keystore.jks generation...
+Enter keystore password:
+Re-enter new password:
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 36,500 days
+        for: CN=broker-1, OU=Community, O=Pluralsight, L=Salt Lake City, ST=Utah, C=US
+Generation of keystore/broker-1.keystore.jks completed.
+Commencing broker-1.csr generation...
+Enter keystore password:
+Generation of broker-1.csr completed.
+Commencing broker-1.csr generation by signing broker-1.csr with ca-cert...
+Certificate request self-signature ok
+subject=C = US, ST = Utah, L = Salt Lake City, O = Pluralsight, OU = Community, CN = broker-1
+Enter pass phrase for ca-key:
+Generation of broker-1.signed completed.
+Commencing import of ca-cert into keystore/broker-1.keystore.jks...
+Enter keystore password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+./generate-keystore.sh: line 34: LE: command not found
+Import of ca-cert into keystore/broker-1.keystore.jks completed.
+Commencing import broker-1.signed into keystore/broker-1.keystore.jks...
+Enter keystore password:
+Certificate reply was installed in keystore
+Import broker-1.signed into keystore/broker-1.keystore.jks completed.
+rm: cannot remove 'ca-cert.srl': No such file or directory
+
+### writing a list of keystore/broker-1.keystore.jks to file for comparison with the ones produced by the teacher
+willem@linux-laptop:~/git/ps-securing-kafka/security$ keytool -list -v -keystore keystore/broker-1.keystore.jks > broker-1.keystore.jks.list.txt
+Enter keystore password:  password
+
+### creating keystore for broker-2, further echo comments were added to the script & the attempt to remove none-existent ca-cert.srl removed.
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-keystore.sh broker-2
+Commencing keystore/broker-2.keystore.jks generation...
+Enter keystore password:
+Re-enter new password:
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 36,500 days
+        for: CN=broker-2, OU=Community, O=Pluralsight, L=Salt Lake City, ST=Utah, C=US
+Generation of keystore/broker-2.keystore.jks completed.
+Commencing broker-2.csr generation...
+Enter keystore password:
+Generation of broker-2.csr completed.
+Commencing broker-2.signed generation by signing broker-2.csr with ca-cert...
+Certificate request self-signature ok
+subject=C = US, ST = Utah, L = Salt Lake City, O = Pluralsight, OU = Community, CN = broker-2
+Enter pass phrase for ca-key:
+Generation of broker-2.signed completed.
+Commencing import of ca-cert into keystore/broker-2.keystore.jks...
+Enter keystore password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+Import of ca-cert into keystore/broker-2.keystore.jks completed.
+Commencing import broker-2.signed into keystore/broker-2.keystore.jks...
+Enter keystore password:
+Certificate reply was installed in keystore
+Import broker-2.signed into keystore/broker-2.keystore.jks completed.
+
+### writing a list of keystore/broker-2.keystore.jks to file for comparison with the ones produced by the teacher
+willem@linux-laptop:~/git/ps-securing-kafka/security$ keytool -list -v -keystore keystore/broker-2.keystore.jks > broker-2.keystore.jks.list.txt
+Enter keystore password:  password
+
+### creating keystore for broker-3
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-keystore.sh broker-3
+Commencing keystore/broker-3.keystore.jks generation...
+Enter keystore password:
+Re-enter new password:
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 36,500 days
+        for: CN=broker-3, OU=Community, O=Pluralsight, L=Salt Lake City, ST=Utah, C=US
+Generation of keystore/broker-3.keystore.jks completed.
+Commencing broker-3.csr generation...
+Enter keystore password:
+Generation of broker-3.csr completed.
+Commencing broker-3.signed generation by signing broker-3.csr with ca-cert...
+Certificate request self-signature ok
+subject=C = US, ST = Utah, L = Salt Lake City, O = Pluralsight, OU = Community, CN = broker-3
+Enter pass phrase for ca-key:
+Generation of broker-3.signed completed.
+Commencing import of ca-cert into keystore/broker-3.keystore.jks...
+Enter keystore password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+Import of ca-cert into keystore/broker-3.keystore.jks completed.
+Commencing import broker-3.signed into keystore/broker-3.keystore.jks...
+Enter keystore password:
+Certificate reply was installed in keystore
+Import broker-3.signed into keystore/broker-3.keystore.jks completed.
+
+### writing a list of keystore/broker-3.keystore.jks to file for comparison with the ones produced by the teacher
+willem@linux-laptop:~/git/ps-securing-kafka/security$ keytool -list -v -keystore keystore/broker-3.keystore.jks > broker-3.keystore.jks.list.txt
+Enter keystore password:  password
+
+### creating truststore for broker-1
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-truststore.sh broker-1
+Creating truststore/broker-1.truststore.jks and importing ca-cert into it ...
+Enter keystore password:
+Re-enter new password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+
+### writing a list of truststore/broker-1.truststore.jks to file for comparison with the ones produced by the teacher
+willem@linux-laptop:~/git/ps-securing-kafka/security$ keytool -list -v -keystore truststore/broker-1.truststore.jks > broker-1.truststore.jks.list.txt
+Enter keystore password:  password
+
+### creating truststore for broker-2
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-truststore.sh broker-2
+Creating truststore/broker-2.truststore.jks and importing ca-cert into it ...
+Enter keystore password:
+Re-enter new password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+
+### writing a list of truststore/broker-2.truststore.jks to file for comparison with the ones produced by the teacher
+willem@linux-laptop:~/git/ps-securing-kafka/security$ keytool -list -v -keystore truststore/broker-2.truststore.jks > broker-2.truststore.jks.list.txt
+Enter keystore password:  password
+
+### creating truststore for broker-3
+willem@linux-laptop:~/git/ps-securing-kafka/security$ ./generate-truststore.sh broker-3
+Creating truststore/broker-3.truststore.jks and importing ca-cert into it ...
+Enter keystore password:
+Re-enter new password:
+Owner: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Issuer: EMAILADDRESS=bogdan@pluralsight.com, CN=pluralsight.com, OU=Community, O=Pluralsight, L=Utah, ST=UT, C=US
+Serial number: f05ee1cba3360804
+Valid from: Thu Oct 08 19:07:15 CEST 2020 until: Sat Sep 14 19:07:15 CEST 2120
+Certificate fingerprints:
+         SHA1: B8:C7:82:72:B4:6E:A4:44:00:AC:70:D7:CF:A0:19:47:6F:95:2C:54
+         SHA256: 40:DB:65:45:AB:67:4F:3A:3C:D0:FE:99:08:36:BC:0A:D9:8C:5B:E0:75:21:AA:20:92:0B:68:53:A1:DA:99:49
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+Trust this certificate? [no]:  y
+Certificate was added to keystore
+
+### writing a list of truststore/broker-3.truststore.jks to file for comparison with the ones produced by the teacher
+willem@linux-laptop:~/git/ps-securing-kafka/security$ keytool -list -v -keystore truststore/broker-3.truststore.jks > broker-3.truststore.jks.list.txt
+Enter keystore password:  password
+willem@linux-laptop:~/git/ps-securing-kafka/security$
+
