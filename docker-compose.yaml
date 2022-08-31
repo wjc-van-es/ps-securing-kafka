@@ -92,15 +92,16 @@
           - zookeeper-3
         ports:
           - "9091:9091"
+          - "9191:9191"
         volumes:
             - ./security/keystore/broker-1.keystore.jks:/kafka/security/broker-1.keystore.jks
             - ./security/truststore/broker-1.truststore.jks:/kafka/security/broker-1.truststore.jks
         environment:
           KAFKA_BROKER_ID: 1
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
-          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-1:9091
-          KAFKA_LISTENERS: PLAINTEXT://broker-1:9091
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SSL:SSL
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-1:9091,SSL://broker-1:9191
+          KAFKA_LISTENERS: PLAINTEXT://broker-1:9091,SSL://broker-1:9191
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
@@ -110,6 +111,13 @@
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-1.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
+          KAFKA_SSL_CLIENT_AUTH: none
+          KAFKA_SSL_KEYSTORE_LOCATION: /kafka/security/broker-1.keystore.jks
+          KAFKA_SSL_KEYSTORE_PASSWORD: password
+          KAFKA_SSL_KEY_PASSWORD: password
+          KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-1.truststore.jks
+          KAFKA_SSL_TRUSTSTORE_PASSWORD: password
+          KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
 
       broker-2:
         image: bsucaciu/kafka:2.6.0
@@ -121,15 +129,16 @@
           - zookeeper-3
         ports:
           - "9092:9092"
+          - "9192:9192"
         volumes:
             - ./security/keystore/broker-2.keystore.jks:/kafka/security/broker-2.keystore.jks
             - ./security/truststore/broker-2.truststore.jks:/kafka/security/broker-2.truststore.jks
         environment:
           KAFKA_BROKER_ID: 2
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
-          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-2:9092
-          KAFKA_LISTENERS: PLAINTEXT://broker-2:9092
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SSL:SSL
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-2:9092,SSL://broker-2:9192
+          KAFKA_LISTENERS: PLAINTEXT://broker-2:9092,SSL://broker-2:9192
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
@@ -140,6 +149,12 @@
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-2.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
+          KAFKA_SSL_CLIENT_AUTH: none
+          KAFKA_SSL_KEYSTORE_LOCATION: /kafka/security/broker-2.keystore.jks
+          KAFKA_SSL_KEYSTORE_PASSWORD: password
+          KAFKA_SSL_KEY_PASSWORD: password
+          KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-2.truststore.jks
+          KAFKA_SSL_TRUSTSTORE_PASSWORD: password
 
       broker-3:
         image: bsucaciu/kafka:2.6.0
@@ -151,15 +166,16 @@
           - zookeeper-3
         ports:
           - "9093:9093"
+          - "9193:9193"
         volumes:
             - ./security/keystore/broker-3.keystore.jks:/kafka/security/broker-3.keystore.jks
             - ./security/truststore/broker-3.truststore.jks:/kafka/security/broker-3.truststore.jks
         environment:
           KAFKA_BROKER_ID: 3
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
-          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-3:9093
-          KAFKA_LISTENERS: PLAINTEXT://broker-3:9093
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SSL:SSL
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-3:9093,SSL://broker-3:9193
+          KAFKA_LISTENERS: PLAINTEXT://broker-3:9093,SSL://broker-3:9193
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
@@ -169,3 +185,9 @@
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-3.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
+          KAFKA_SSL_CLIENT_AUTH: none
+          KAFKA_SSL_KEYSTORE_LOCATION: /kafka/security/broker-3.keystore.jks
+          KAFKA_SSL_KEYSTORE_PASSWORD: password
+          KAFKA_SSL_KEY_PASSWORD: password
+          KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-3.truststore.jks
+          KAFKA_SSL_TRUSTSTORE_PASSWORD: password

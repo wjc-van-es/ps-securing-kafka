@@ -1,0 +1,2 @@
+/Users/bogdan/pluralsight/securing-kafka-cluster/m4/security/
+/home/willem/git/ps-securing-kafka/security/
