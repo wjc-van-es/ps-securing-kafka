@@ -1,0 +1,17 @@
+This was not mentioned in the video, but in the docker-compose-sasl-plain.yaml file the entry
+          KAFKA_SSL_CLIENT_AUTH
+          was changed from required to none
+(compared to the docker-compose-mtls.yaml  file)
+I wanted to check if it should be required, because some slight oversights kept appearing in the demo's.
+I left it on required and it worked fine. I am still not sure how this needs to be set, but it seems to be working either way.
+
+In Both the SASLPlainConsumer & the SASLPlainProducer we need to set a VM option, which is a bit hidden from the Run Configuration
+window. (It's neither an Application argument nor an environment variable, which both are visible options by default)
+Click on the Link Modify Options (ALT+M) and Add Add VM Options (ALT+V)
+and then you may add to the producer and the consumer config respectively:
+-Djava.security.auth.login.config=/home/willem/git/ps-securing-kafka/secure-clients/src/main/resources/sasl_plain_producer_jaas.conf
+-Djava.security.auth.login.config=/home/willem/git/ps-securing-kafka/secure-clients/src/main/resources/sasl_plain_consumer_jaas.conf
+
+As an extra reminder of this special VM option setting to the java command I selected "Store as Project file" for both
+the run configurations. They are stored as:
+.run/SASLPlainConsumer.run.xml and .run/SASLPlainProducer.run.xml
