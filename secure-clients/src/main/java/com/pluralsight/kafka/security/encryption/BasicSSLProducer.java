@@ -18,6 +18,7 @@ public class BasicSSLProducer {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "broker-1:9191,broker-2:9192,broker-3:9193");
+
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -28,7 +29,6 @@ public class BasicSSLProducer {
 //        props.put(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, "/home/willem/git/ps-securing-kafka/security/keystore/producer.keystore.jks"); // Replace with the absolute path on your machine
 //        props.put(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, "password");
 //        props.put(SslConfigs.SSL_KEY_PASSWORD_CONFIG, "password");
-
 
         // We need to have an absolute path for this property
         props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, "/home/willem/git/ps-securing-kafka/security/truststore/producer.truststore.jks"); // Replace with the absolute path on your machine
