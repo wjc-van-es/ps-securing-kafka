@@ -31,9 +31,10 @@ public class E2EEncryptionProducer {
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SSL");
 
         // We need to have an absolute path for this property
-        props.put(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, "/home/willem/git/ps-securing-kafka/security/keystore/producer.keystore.jks"); // Replace with the absolute path on your machine
-        props.put(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, "password");
-        props.put(SslConfigs.SSL_KEY_PASSWORD_CONFIG, "password");
+        // Which is only needed for mutual TLS
+//        props.put(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, "/home/willem/git/ps-securing-kafka/security/keystore/producer.keystore.jks"); // Replace with the absolute path on your machine
+//        props.put(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, "password");
+//        props.put(SslConfigs.SSL_KEY_PASSWORD_CONFIG, "password");
 
         // We need to have an absolute path for this property
         props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, "/home/willem/git/ps-securing-kafka/security/truststore/producer.truststore.jks"); // Replace with the absolute path on your machine
