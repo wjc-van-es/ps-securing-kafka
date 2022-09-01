@@ -143,7 +143,6 @@
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
           KAFKA_ZOOKEEPER_SSL_CLIENT_ENABLE: "true"
-          KAFKA_ZOOKEEPER_SASL_CLIENT_ENABLE: "false"
           KAFKA_ZOOKEEPER_CLIENT_CNXN_SOCKET: org.apache.zookeeper.ClientCnxnSocketNetty
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_LOCATION: /kafka/security/broker-2.keystore.jks
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
@@ -155,6 +154,7 @@
           KAFKA_SSL_KEY_PASSWORD: password
           KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-2.truststore.jks
           KAFKA_SSL_TRUSTSTORE_PASSWORD: password
+          KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
 
       broker-3:
         image: bsucaciu/kafka:2.6.0
@@ -191,3 +191,4 @@
           KAFKA_SSL_KEY_PASSWORD: password
           KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-3.truststore.jks
           KAFKA_SSL_TRUSTSTORE_PASSWORD: password
+          KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
