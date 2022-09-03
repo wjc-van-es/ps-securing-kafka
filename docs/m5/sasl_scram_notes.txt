@@ -1,0 +1,26 @@
+After setting up everything
+- docker-compose-sasl-scram.yaml
+- secure-clients/src/main/resources/sasl_scram_consumer_jaas.conf
+- secure-clients/src/main/resources/sasl_scram_producer_jaas.conf
+- secure-clients/src/main/java/com/pluralsight/kafka/security/authentication/SASLSCRAMConsumer.java
+- secure-clients/src/main/java/com/pluralsight/kafka/security/authentication/SASLSCRAMProducer.java
+- secure-clients/src/main/resources/sasl_scram_consumer_jaas.conf
+- secure-clients/src/main/resources/sasl_scram_producer_jaas.conf
+
+and setting up the VM options when running bot the consumer and producer:
+-Djava.security.auth.login.config=$PROJECT_DIR$/secure-clients/src/main/resources/sasl_scram_consumer_jaas.conf" and
+-Djava.security.auth.login.config=$PROJECT_DIR$/secure-clients/src/main/resources/sasl_scram_producer_jaas.conf
+
+we started out by staring up the cluster:
+docker compose -f docker-compose-sasl-scram.yaml up -d
+
+As predicted by the teacher, checking each of the broker logs we would find:
+2022-09-03 13:02:52,064 - INFO  [data-plane-kafka-network-thread-1-ListenerName(SASL_SSL)-SASL_SSL-4:Selector@620] - [SocketServer brokerId=1] Failed authentication with broker-2.ps-securing-kafka_default/172.18.0.7 (Authentication failed during authentication due to invalid credentials with SASL mechanism SCRAM-SHA-256)
+repeated over and over.
+We stopped all brokers and started them up one by one and doing additional configuration in an interactive bash session (very troublesome)
+And I suspect everytime the brokers restart we have to do this manually again, which is frankly unacceptable.
+
+
+The prescribed commands didn´t fix it. perhaps because nota ll necessary entries were added to
+security/authentication/sasl_scram/broker_jaas_scram.conf
+For the moment I will not waste any more time on that trying to make it work. This is just unsuitable.

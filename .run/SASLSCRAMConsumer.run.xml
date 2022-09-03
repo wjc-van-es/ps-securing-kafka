@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SASLSCRAMConsumer" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.pluralsight.kafka.security.authentication.SASLSCRAMConsumer" />
+    <module name="secure-clients" />
+    <option name="VM_PARAMETERS" value="-Djava.security.auth.login.config=$PROJECT_DIR$/secure-clients/src/main/resources/sasl_scram_consumer_jaas.conf" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
