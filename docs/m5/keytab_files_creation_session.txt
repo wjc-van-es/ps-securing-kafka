@@ -1,0 +1,107 @@
+willem@linux-laptop:~/git/ps-securing-kafka/security$ docker exec -it kerberos /bin/sh
+/ # cd /etc/security/keytabs/
+/etc/security/keytabs # rm *.keytab
+/etc/security/keytabs # ls -la
+total 12
+drwxrwxr-x    2 1000     1000          4096 Sep  3 23:21 .
+drwxr-xr-x    3 root     root          4096 Sep  3 23:19 ..
+-rwxrwxr-x    1 1000     1000          1252 Sep  3 21:01 create-keytabs.sh
+
+### With copy pasting in all commands from create-keytabs.sh (as running the file itself led to problems)
+### goes wrong because of the cd already typed on the first line
+### therefore all but the entries for all but broker-1 succeed.
+/etc/security/keytabs # cd kadmin.local -q 'addprinc -randkey kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM'
+/bin/sh: cd: can't cd to kadmin.local: No such file or directory
+/etc/security/keytabs # kadmin.local -q "ktadd -k /etc/security/keytabs/broker1.keytab kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM"
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+kadmin.local: Principal kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM does not exist.
+/etc/security/keytabs #
+/etc/security/keytabs # kadmin.local -q 'addprinc -randkey kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM'
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM; defaulting to no policy
+Principal "kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM" created.
+/etc/security/keytabs # kadmin.local -q "ktadd -k /etc/security/keytabs/broker2.keytab kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM"
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker2.keytab.
+Entry for principal kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker2.keytab.
+/etc/security/keytabs #
+/etc/security/keytabs # kadmin.local -q 'addprinc -randkey kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM'
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM; defaulting to no policy
+Principal "kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM" created.
+/etc/security/keytabs # kadmin.local -q "ktadd -k /etc/security/keytabs/broker3.keytab kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM"
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker3.keytab.
+Entry for principal kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker3.keytab.
+/etc/security/keytabs #
+/etc/security/keytabs # kadmin.local -q 'addprinc -randkey producer@PLURALSIGHT.COM'
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for producer@PLURALSIGHT.COM; defaulting to no policy
+Principal "producer@PLURALSIGHT.COM" created.
+/etc/security/keytabs # kadmin.local -q "ktadd -k /etc/security/keytabs/producer.keytab producer@PLURALSIGHT.COM"
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal producer@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/producer.keytab.
+Entry for principal producer@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/producer.keytab.
+/etc/security/keytabs #
+/etc/security/keytabs # kadmin.local -q 'addprinc -randkey consumer@PLURALSIGHT.COM'
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for consumer@PLURALSIGHT.COM; defaulting to no policy
+Principal "consumer@PLURALSIGHT.COM" created.
+/etc/security/keytabs # kadmin.local -q "ktadd -k /etc/security/keytabs/consumer.keytab consumer@PLURALSIGHT.COM"
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal consumer@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/consumer.keytab.
+Entry for principal consumer@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/consumer.keytab.
+/etc/security/keytabs # ls -la
+total 28
+drwxrwxr-x    2 1000     1000          4096 Sep  3 23:25 .
+drwxr-xr-x    3 root     root          4096 Sep  3 23:19 ..
+-rw-------    1 root     root           216 Sep  3 23:25 broker2.keytab
+-rw-------    1 root     root           216 Sep  3 23:25 broker3.keytab
+-rw-------    1 root     root           150 Sep  3 23:25 consumer.keytab
+-rwxrwxr-x    1 1000     1000          1253 Sep  3 23:25 create-keytabs.sh
+-rw-------    1 root     root           150 Sep  3 23:25 producer.keytab
+
+### extending read privileges beyond the root to the keytab files
+### to resolve a strange authenticating error whilst starting up the broker containers
+/etc/security/keytabs # chmod 644 *.keytab
+/etc/security/keytabs # ls -la
+total 28
+drwxrwxr-x    2 1000     1000          4096 Sep  3 23:25 .
+drwxr-xr-x    3 root     root          4096 Sep  3 23:19 ..
+-rw-r--r--    1 root     root           216 Sep  3 23:25 broker2.keytab
+-rw-r--r--    1 root     root           216 Sep  3 23:25 broker3.keytab
+-rw-r--r--    1 root     root           150 Sep  3 23:25 consumer.keytab
+-rwxrwxr-x    1 1000     1000          1253 Sep  3 23:25 create-keytabs.sh
+-rw-r--r--    1 root     root           150 Sep  3 23:25 producer.keytab
+
+### As we saw the broker-1.keytab missing we tried again:
+/etc/security/keytabs # kadmin.local -q 'addprinc -randkey kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM'
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM; defaulting to no policy
+Principal "kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM" created.
+/etc/security/keytabs # kadmin.local -q "ktadd -k /etc/security/keytabs/broker1.keytab kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM"
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker1.keytab.
+Entry for principal kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker1.keytab.
+/etc/security/keytabs # ls -la
+total 32
+drwxrwxr-x    2 1000     1000          4096 Sep  3 23:29 .
+drwxr-xr-x    3 root     root          4096 Sep  3 23:19 ..
+-rw-------    1 root     root           216 Sep  3 23:29 broker1.keytab
+-rw-r--r--    1 root     root           216 Sep  3 23:25 broker2.keytab
+-rw-r--r--    1 root     root           216 Sep  3 23:25 broker3.keytab
+-rw-r--r--    1 root     root           150 Sep  3 23:25 consumer.keytab
+-rwxrwxr-x    1 1000     1000          1253 Sep  3 23:25 create-keytabs.sh
+-rw-r--r--    1 root     root           150 Sep  3 23:25 producer.keytab
+/etc/security/keytabs # chmod 644 *.keytab
+/etc/security/keytabs # ls -la
+total 32
+drwxrwxr-x    2 1000     1000          4096 Sep  3 23:29 .
+drwxr-xr-x    3 root     root          4096 Sep  3 23:19 ..
+-rw-r--r--    1 root     root           216 Sep  3 23:29 broker1.keytab
+-rw-r--r--    1 root     root           216 Sep  3 23:25 broker2.keytab
+-rw-r--r--    1 root     root           216 Sep  3 23:25 broker3.keytab
+-rw-r--r--    1 root     root           150 Sep  3 23:25 consumer.keytab
+-rwxrwxr-x    1 1000     1000          1253 Sep  3 23:25 create-keytabs.sh
+-rw-r--r--    1 root     root           150 Sep  3 23:25 producer.keytab
+/etc/security/keytabs #

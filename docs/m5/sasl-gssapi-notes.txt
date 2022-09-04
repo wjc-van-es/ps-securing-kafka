@@ -1,0 +1,72 @@
+willem@linux-laptop:~/git/ps-securing-kafka/security$ docker exec -it kerberos /bin/sh
+/ # ls -la
+total 80
+drwxr-xr-x    1 root     root          4096 Sep  3 21:40 .
+drwxr-xr-x    1 root     root          4096 Sep  3 21:40 ..
+-rwxr-xr-x    1 root     root             0 Sep  3 21:40 .dockerenv
+drwxr-xr-x    2 root     root          4096 May 29  2020 bin
+drwxr-xr-x    5 root     root           340 Sep  3 21:40 dev
+-rwxr-xr-x    1 root     root          2141 Nov  1  2020 docker-entrypoint.sh
+drwxr-xr-x    1 root     root          4096 Sep  3 21:40 etc
+drwxr-xr-x    2 root     root          4096 May 29  2020 home
+drwxr-xr-x    1 root     root          4096 Aug 15  2020 lib
+drwxr-xr-x    5 root     root          4096 May 29  2020 media
+drwxr-xr-x    2 root     root          4096 May 29  2020 mnt
+drwxr-xr-x    2 root     root          4096 May 29  2020 opt
+dr-xr-xr-x  544 root     root             0 Sep  3 21:40 proc
+drwx------    1 root     root          4096 Sep  3 21:40 root
+drwxr-xr-x    1 root     root          4096 Aug 15  2020 run
+drwxr-xr-x    1 root     root          4096 Aug 15  2020 sbin
+drwxr-xr-x    2 root     root          4096 May 29  2020 srv
+dr-xr-xr-x   13 root     root             0 Sep  3 21:40 sys
+drwxrwxrwt    1 root     root          4096 Sep  3 21:40 tmp
+drwxr-xr-x    1 root     root          4096 Aug 15  2020 usr
+drwxr-xr-x    1 root     root          4096 May 29  2020 var
+/ # cd /etc/security/keytabs/
+/etc/security/keytabs # ls -la
+total 12
+drwxrwxr-x    2 1000     1000          4096 Sep  3 21:31 .
+drwxr-xr-x    3 root     root          4096 Sep  3 21:40 ..
+-rwxrwxr-x    1 1000     1000          1252 Sep  3 21:01 create-keytabs.sh
+/etc/security/keytabs # ./create-keytabs.sh
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM; defaulting to no policy
+Principal "kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM" created.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker1.keytab.
+Entry for principal kafka/broker-1.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker1.keytab.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM; defaulting to no policy
+Principal "kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM" created.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker2.keytab.
+Entry for principal kafka/broker-2.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker2.keytab.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM; defaulting to no policy
+Principal "kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM" created.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker3.keytab.
+Entry for principal kafka/broker-3.ps-securing-kafka_default@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/broker3.keytab.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for producer@PLURALSIGHT.COM; defaulting to no policy
+Principal "producer@PLURALSIGHT.COM" created.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal producer@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/producer.keytab.
+Entry for principal producer@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/producer.keytab.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+No policy specified for consumer@PLURALSIGHT.COM; defaulting to no policy
+Principal "consumer@PLURALSIGHT.COM" created.
+Authenticating as principal root/admin@PLURALSIGHT.COM with password.
+Entry for principal consumer@PLURALSIGHT.COM with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/consumer.keytab.
+Entry for principal consumer@PLURALSIGHT.COM with kvno 2, encryption type aes128-cts-hmac-sha1-96 added to keytab WRFILE:/etc/security/keytabs/consumer.keytab.
+/etc/security/keytabs # ls -la
+total 32
+drwxrwxr-x    2 1000     1000          4096 Sep  3 21:42 .
+drwxr-xr-x    3 root     root          4096 Sep  3 21:40 ..
+-rw-------    1 root     root           216 Sep  3 21:42 broker1.keytab
+-rw-------    1 root     root           216 Sep  3 21:42 broker2.keytab
+-rw-------    1 root     root           216 Sep  3 21:42 broker3.keytab
+-rw-------    1 root     root           150 Sep  3 21:42 consumer.keytab
+-rwxrwxr-x    1 1000     1000          1252 Sep  3 21:01 create-keytabs.sh
+-rw-------    1 root     root           150 Sep  3 21:42 producer.keytab
+/etc/security/keytabs #

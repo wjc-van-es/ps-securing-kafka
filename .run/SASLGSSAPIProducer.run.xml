@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SASLGSSAPIProducer" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.pluralsight.kafka.security.authentication.SASLGSSAPIProducer" />
+    <module name="secure-clients" />
+    <option name="PROGRAM_PARAMETERS" value="-Djava.security.auth.login.config=$PROJECT_DIR$/secure-clients/src/main/resources/sasl_gssapi_producer_jaas.conf -Djava.security.krb5.conf=$PROJECT_DIR$/secure-clients/src/main/resources/krb5.conf" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

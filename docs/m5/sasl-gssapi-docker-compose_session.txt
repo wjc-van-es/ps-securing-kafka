@@ -1,0 +1,123 @@
+
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d zookeeper-1
+[+] Running 1/1
+ ⠿ Container zookeeper-1  Started                                                                                                                                                                                                  0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d zookeeper-2
+[+] Running 1/1
+ ⠿ Container zookeeper-2  Started                                                                                                                                                                                                  0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d zookeeper-3
+[+] Running 1/1
+ ⠿ Container zookeeper-3  Started                                                                                                                                                                                                  0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d kerberos
+[+] Running 1/1
+ ⠿ Container kerberos  Started                                                                                                                                                                                                     0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d broker-1
+[+] Running 4/4
+ ⠿ Container zookeeper-1  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container zookeeper-3  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container zookeeper-2  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container broker-1     Started                                                                                                                                                                                                  0.4s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose ps
+NAME                COMMAND                  SERVICE             STATUS              PORTS
+broker-1            "/docker-entrypoint.…"   broker-1            running             0.0.0.0:9191->9191/tcp, 0.0.0.0:9291->9291/tcp, :::9191->9191/tcp, :::9291->9291/tcp
+kerberos            "/sbin/tini -- /dock…"   kerberos            running             0.0.0.0:88->88/tcp, 0.0.0.0:464->464/tcp, 0.0.0.0:749->749/tcp, :::88->88/tcp, :::464->464/tcp, :::749->749/tcp
+zookeeper-1         "/docker-entrypoint.…"   zookeeper-1         running             8080/tcp
+zookeeper-2         "/docker-entrypoint.…"   zookeeper-2         running             8080/tcp
+zookeeper-3         "/docker-entrypoint.…"   zookeeper-3         running             8080/tcp
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d broker-2
+[+] Running 4/4
+ ⠿ Container zookeeper-3  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container zookeeper-1  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container zookeeper-2  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container broker-2     Started                                                                                                                                                                                                  0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d broker-3
+[+] Running 4/4
+ ⠿ Container zookeeper-3  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container zookeeper-1  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container zookeeper-2  Running                                                                                                                                                                                                  0.0s
+ ⠿ Container broker-3     Started                                                                                                                                                                                                  0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose ps
+NAME                COMMAND                  SERVICE             STATUS              PORTS
+broker-1            "/docker-entrypoint.…"   broker-1            running             0.0.0.0:9191->9191/tcp, 0.0.0.0:9291->9291/tcp, :::9191->9191/tcp, :::9291->9291/tcp
+broker-2            "/docker-entrypoint.…"   broker-2            running             0.0.0.0:9192->9192/tcp, 0.0.0.0:9292->9292/tcp, :::9192->9192/tcp, :::9292->9292/tcp
+broker-3            "/docker-entrypoint.…"   broker-3            running             0.0.0.0:9193->9193/tcp, 0.0.0.0:9293->9293/tcp, :::9193->9193/tcp, :::9293->9293/tcp
+kerberos            "/sbin/tini -- /dock…"   kerberos            running             0.0.0.0:88->88/tcp, 0.0.0.0:464->464/tcp, 0.0.0.0:749->749/tcp, :::88->88/tcp, :::464->464/tcp, :::749->749/tcp
+zookeeper-1         "/docker-entrypoint.…"   zookeeper-1         running             8080/tcp
+zookeeper-2         "/docker-entrypoint.…"   zookeeper-2         running             8080/tcp
+zookeeper-3         "/docker-entrypoint.…"   zookeeper-3         running             8080/tcp
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d consumer
+[+] Running 10/10
+ ⠿ consumer Pulled                                                                                                                                                                                                               221.2s
+   ⠿ 4167d3e14976 Pull complete                                                                                                                                                                                                    8.0s
+   ⠿ 345cf19c142c Pull complete                                                                                                                                                                                                  218.8s
+   ⠿ b9cb7d6a0b11 Pull complete                                                                                                                                                                                                  218.9s
+   ⠿ 27f420d4cdde Pull complete                                                                                                                                                                                                  219.0s
+   ⠿ 6fb96f989235 Pull complete                                                                                                                                                                                                  219.1s
+   ⠿ cee89c8cce7e Pull complete                                                                                                                                                                                                  219.2s
+   ⠿ ec83186f4c66 Pull complete                                                                                                                                                                                                  219.3s
+   ⠿ 06b964c72e0b Pull complete                                                                                                                                                                                                  219.3s
+   ⠿ d0e7341caff5 Pull complete                                                                                                                                                                                                  219.4s
+[+] Running 1/1
+ ⠿ Container consumer  Started                                                                                                                                                                                                     0.5s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml up -d producer
+[+] Running 10/10
+ ⠿ producer Pulled                                                                                                                                                                                                                 3.3s
+   ⠿ 4167d3e14976 Already exists                                                                                                                                                                                                   0.0s
+   ⠿ 345cf19c142c Already exists                                                                                                                                                                                                   0.0s
+   ⠿ b9cb7d6a0b11 Already exists                                                                                                                                                                                                   0.0s
+   ⠿ 27f420d4cdde Already exists                                                                                                                                                                                                   0.0s
+   ⠿ 6fb96f989235 Already exists                                                                                                                                                                                                   0.0s
+   ⠿ 9cafb6735976 Pull complete                                                                                                                                                                                                    0.7s
+   ⠿ 2d91e97c27af Pull complete                                                                                                                                                                                                    0.8s
+   ⠿ 5ab830ef7644 Pull complete                                                                                                                                                                                                    0.9s
+   ⠿ 765ac8c55718 Pull complete                                                                                                                                                                                                    1.3s
+[+] Running 1/1
+ ⠿ Container producer  Started                                                                                                                                                                                                     0.4s
+
+### bringing everything down again (The producer and consumer were stopped already in IntelliJ's docker services tab)
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose -f docker-compose-sasl-gssapi.yaml down
+[+] Running 10/10
+ ⠿ Container kerberos                 Removed                                                                                                                                                                                      0.4s
+ ⠿ Container broker-3                 Removed                                                                                                                                                                                      3.7s
+ ⠿ Container broker-2                 Removed                                                                                                                                                                                      9.1s
+ ⠿ Container producer                 Removed                                                                                                                                                                                      0.0s
+ ⠿ Container broker-1                 Removed                                                                                                                                                                                      4.8s
+ ⠿ Container consumer                 Removed                                                                                                                                                                                      0.0s
+ ⠿ Container zookeeper-2              Removed                                                                                                                                                                                      0.9s
+ ⠿ Container zookeeper-3              Removed                                                                                                                                                                                      0.9s
+ ⠿ Container zookeeper-1              Removed                                                                                                                                                                                      0.8s
+ ⠿ Network ps-securing-kafka_default  Removed                                                                                                                                                                                      0.2s
+willem@linux-laptop:~/git/ps-securing-kafka$ docker compose ps
+NAME                COMMAND             SERVICE             STATUS              PORTS
+
+willem@linux-laptop:~/git/ps-securing-kafka$ docker volume prune
+WARNING! This will remove all local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Deleted Volumes:
+f3cc65720f74d74b5467b1a1259392d4f58333dbeab159a133c6596eadabf180
+a77911f2735443e2695495488a727856bdeb3c3ff1d9383f2cbeabb9e2887e06
+043154099b7f1da55813cbbad5ec1bb0919093ce1618c7c573370ec6f2135363
+bc520b77f44a482cc15a658b42645a0e22ab1f1c56cfdc78a0d1fd269a61e783
+642c311e6cdd30ab5133c8694cbe2c71d97c5ebca321d2891c4539d65e28fdee
+5398fa1e2b7030560aefe74e1bb092feb1e4a2bf9e50edd4aee31bbefa2fd2c2
+6d9509f3eef6cc665e3697a4a6bf232b7089168d60ccea9fc41c85a6e79df9da
+509ff654389841e74b01de61506d15815ed1133dd2fe997a4a3df1979f0c6401
+53c47ad2a241b434e2576a2020a320d4e3524820b0e7f4c73cd02cd8ca8169c4
+fcbf66a70a8cb6165074bb66831977283aec85aa7132dcd0a398cbd36bf7cc72
+37c1580d71b0c488f028015ccc3c4212d9e43cc6c934d03050f1e47bbd67f05c
+6468a34129f251200937c868872f0f131ef81a6a4192cb9d4aa68896a06fe945
+5ee27ace2c4d17d66e90a011cc9d97249db91bc043d0a202521a4477617fdb08
+096ccefb7cf3a5c6583e8b0b93475dcbbbcc31578e9fb7e5a1a94bbd9fc75a8a
+fcc8a1c0096abab1333dccccf806d36ef72eeed90b11a489b0d83c6556fe6193
+fde9f908e98811f78c78a7e30cd1b2eecec6c8a4166e984d421d90074c364e92
+9a87ac2242973800352bf5b4a0ac5728e547f713301d0924d20a259216eef10a
+538069697bc71a776e98ab49242e44b2245392b4bf57be58d3bf69b137b6d3a8
+f7a048affa420a013d560fff00382f47128342876c065783bd5d10830a246d10
+a93dfdfccc3a3cfbbd95c4f977f6b96c2e5576da188a3615eb7e242271107d87
+
+Total reclaimed space: 402.7MB
+willem@linux-laptop:~/git/ps-securing-kafka$ docker volume ls
+DRIVER    VOLUME NAME
+willem@linux-laptop:~/git/ps-securing-kafka$
+
+
