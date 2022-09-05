@@ -1,0 +1,121 @@
+/home/willem/.sdkman/candidates/java/17.0.4-tem/bin/java -javaagent:/home/willem/.local/share/JetBrains/Toolbox/apps/IDEA-C/ch-0/222.3739.54/lib/idea_rt.jar=43655:/home/willem/.local/share/JetBrains/Toolbox/apps/IDEA-C/ch-0/222.3739.54/bin -Dfile.encoding=UTF-8 -classpath /home/willem/git/ps-securing-kafka/secure-clients/target/classes:/home/willem/.m2/repository/org/apache/kafka/kafka-clients/3.2.1/kafka-clients-3.2.1.jar:/home/willem/.m2/repository/com/github/luben/zstd-jni/1.5.2-1/zstd-jni-1.5.2-1.jar:/home/willem/.m2/repository/org/lz4/lz4-java/1.8.0/lz4-java-1.8.0.jar:/home/willem/.m2/repository/org/xerial/snappy/snappy-java/1.1.8.4/snappy-java-1.1.8.4.jar:/home/willem/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/willem/.m2/repository/de/saly/kafka-end-2-end-encryption/1.0.1/kafka-end-2-end-encryption-1.0.1.jar:/home/willem/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/2.3.3/jakarta.xml.bind-api-2.3.3.jar:/home/willem/.m2/repository/jakarta/activation/jakarta.activation-api/1.2.2/jakarta.activation-api-1.2.2.jar:/home/willem/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.13.3/jackson-databind-2.13.3.jar:/home/willem/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.13.3/jackson-annotations-2.13.3.jar:/home/willem/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.13.3/jackson-core-2.13.3.jar:/home/willem/.m2/repository/org/slf4j/slf4j-reload4j/1.7.36/slf4j-reload4j-1.7.36.jar:/home/willem/.m2/repository/ch/qos/reload4j/reload4j/1.2.19/reload4j-1.2.19.jar com.pluralsight.kafka.security.authorization.MTLSProducer
+[2022-09-05 22:17:59,409] INFO ProducerConfig values:
+	acks = -1
+	batch.size = 16384
+	bootstrap.servers = [broker-1:9191, broker-2:9192, broker-3:9193]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = SSL
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = [hidden]
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = /home/willem/git/ps-securing-kafka/security/keystore/producer.keystore.jks
+	ssl.keystore.password = [hidden]
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = /home/willem/git/ps-securing-kafka/security/truststore/producer.truststore.jks
+	ssl.truststore.password = [hidden]
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+ (org.apache.kafka.clients.producer.ProducerConfig)
+[2022-09-05 22:17:59,503] INFO [Producer clientId=producer-1] Instantiated an idempotent producer. (org.apache.kafka.clients.producer.KafkaProducer)
+[2022-09-05 22:17:59,724] INFO Kafka version: 3.2.1 (org.apache.kafka.common.utils.AppInfoParser)
+[2022-09-05 22:17:59,724] INFO Kafka commitId: b172a0a94f4ebb9f (org.apache.kafka.common.utils.AppInfoParser)
+[2022-09-05 22:17:59,725] INFO Kafka startTimeMs: 1662409079722 (org.apache.kafka.common.utils.AppInfoParser)
+[2022-09-05 22:18:00,032] WARN [Producer clientId=producer-1] Error while fetching metadata with correlation id 1 : {auth-topic=LEADER_NOT_AVAILABLE} (org.apache.kafka.clients.NetworkClient)
+[2022-09-05 22:18:00,033] INFO [Producer clientId=producer-1] Cluster ID: 4RLZn9OOQdC-r56MP1oOFA (org.apache.kafka.clients.Metadata)
+[2022-09-05 22:18:00,034] INFO [Producer clientId=producer-1] ProducerId set to 0 with epoch 0 (org.apache.kafka.clients.producer.internals.TransactionManager)
+[2022-09-05 22:18:00,195] WARN [Producer clientId=producer-1] Error while fetching metadata with correlation id 4 : {auth-topic=LEADER_NOT_AVAILABLE} (org.apache.kafka.clients.NetworkClient)
+[2022-09-05 22:18:00,302] WARN [Producer clientId=producer-1] Error while fetching metadata with correlation id 5 : {auth-topic=LEADER_NOT_AVAILABLE} (org.apache.kafka.clients.NetworkClient)
+[2022-09-05 22:18:00,417] INFO Message sent: 0:ad7f3633-a9ae-47a1-92aa-5ffcfd609c74 (com.pluralsight.kafka.security.authorization.MTLSProducer)
+[2022-09-05 22:18:00,465] INFO [Producer clientId=producer-1] Transiting to fatal error state due to org.apache.kafka.common.errors.ClusterAuthorizationException: The producer is not authorized to do idempotent sends (org.apache.kafka.clients.producer.internals.TransactionManager)
+[2022-09-05 22:18:02,418] INFO [Producer clientId=producer-1] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms. (org.apache.kafka.clients.producer.KafkaProducer)
+[2022-09-05 22:18:02,420] ERROR [Producer clientId=producer-1] Aborting producer batches due to fatal error (org.apache.kafka.clients.producer.internals.Sender)
+org.apache.kafka.common.errors.ClusterAuthorizationException: The producer is not authorized to do idempotent sends
+[2022-09-05 22:18:02,534] INFO Metrics scheduler closed (org.apache.kafka.common.metrics.Metrics)
+[2022-09-05 22:18:02,534] INFO Closing reporter org.apache.kafka.common.metrics.JmxReporter (org.apache.kafka.common.metrics.Metrics)
+[2022-09-05 22:18:02,534] INFO Metrics reporters closed (org.apache.kafka.common.metrics.Metrics)
+[2022-09-05 22:18:02,534] INFO App info kafka.producer for producer-1 unregistered (org.apache.kafka.common.utils.AppInfoParser)
+[2022-09-05 22:18:02,534] ERROR An error occurred during production (com.pluralsight.kafka.security.authorization.MTLSProducer)
+org.apache.kafka.common.KafkaException: Cannot execute transactional method because we are in an error state
+	at org.apache.kafka.clients.producer.internals.TransactionManager.maybeFailWithError(TransactionManager.java:1125)
+	at org.apache.kafka.clients.producer.internals.TransactionManager.maybeAddPartition(TransactionManager.java:442)
+	at org.apache.kafka.clients.producer.KafkaProducer.doSend(KafkaProducer.java:998)
+	at org.apache.kafka.clients.producer.KafkaProducer.send(KafkaProducer.java:912)
+	at org.apache.kafka.clients.producer.KafkaProducer.send(KafkaProducer.java:797)
+	at com.pluralsight.kafka.security.authorization.MTLSProducer.main(MTLSProducer.java:50)
+Caused by: org.apache.kafka.common.errors.ClusterAuthorizationException: The producer is not authorized to do idempotent sends
+[2022-09-05 22:18:02,535] INFO [Producer clientId=producer-1] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms. (org.apache.kafka.clients.producer.KafkaProducer)
+[2022-09-05 22:18:02,535] INFO Metrics scheduler closed (org.apache.kafka.common.metrics.Metrics)
+[2022-09-05 22:18:02,535] INFO Closing reporter org.apache.kafka.common.metrics.JmxReporter (org.apache.kafka.common.metrics.Metrics)
+[2022-09-05 22:18:02,536] INFO Metrics reporters closed (org.apache.kafka.common.metrics.Metrics)
+[2022-09-05 22:18:02,536] INFO App info kafka.producer for producer-1 unregistered (org.apache.kafka.common.utils.AppInfoParser)
+
+Process finished with exit code 0
