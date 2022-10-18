@@ -48,7 +48,8 @@ ssl.truststore.location=/kafka/security/broker-1.truststore.jks
 ssl.truststore.password=password
 ssl.keystore.location=/kafka/security/broker-1.keystore.jks
 ssl.keystore.password=password
-ssl.key.password=password[kafka@broker-1 config]$ cd ../bin/
+ssl.key.password=password
+[kafka@broker-1 config]$ cd ../bin/
 [kafka@broker-1 bin]$ ./kafka-acls.sh --bootstrap-server broker-1:9191 --add --allow-principal User:CN=producer,OU=Community,O=Pluralsight,L=Utah,ST=Utah,C=US --operation CREATE --topic 'auth-topic' --command-config /kafka/config/admin.properties
 [2022-09-05 21:46:05,688] WARN The configuration 'ssl.truststore.location' was supplied but isn't a known config. (org.apache.kafka.clients.admin.AdminClientConfig)
 [2022-09-05 21:46:05,689] WARN The configuration 'ssl.keystore.password' was supplied but isn't a known config. (org.apache.kafka.clients.admin.AdminClientConfig)

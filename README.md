@@ -6,6 +6,7 @@ PluralSight Course: Securing a kafka Cluser by Bogdan Sucaciu
 This Git repository contains artefacts you would normally **never** store in a Git repository for any real 
 application deployed in a production environment, 
 as these must be kept secret and secure:
+- unencrypted password values
 - keystores
 - truststores
 - private keys
