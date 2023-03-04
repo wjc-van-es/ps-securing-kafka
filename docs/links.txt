@@ -2,3 +2,12 @@ https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.ht
 https://www.misterpki.com/keytool-list-certs/
 https://docs.oracle.com/en/java/javase/17/docs/specs/man/keytool.html
 https://stackoverflow.com/questions/11617210/how-to-properly-import-a-selfsigned-certificate-into-java-keystore-that-is-avail
+
+INFO over Kafka (network) Listeners
+https://stackoverflow.com/questions/61243141/kafka-docker-compose-external-connection
+https://stackoverflow.com/questions/61243141/kafka-docker-compose-external-connection
+
+https://rmoff.net/2018/08/02/kafka-listeners-explained/
+https://github.com/confluentinc/demo-scene/blob/74eb51937801a1125d50ee44f9996c6fbe063d83/sonos/docker-compose.yml#L1-L67
+https://docs.confluent.io/platform/current/clients/kafkacat-usage.html#kcat-formerly-kafkacat-utility
+https://github.com/edenhill/kcat
