@@ -104,6 +104,7 @@
           - zookeeper-3
         ports:
           - "9091:9091"
+          ### DIFF M3-M4: extra port for the EXTERNAL_SSL listener #####################################################
           - "9191:9191"
         ### DIFF M2-M3 START: volumes for keystore and truststore added ################################################
         volumes:
@@ -114,9 +115,13 @@
           KAFKA_BROKER_ID: 1
           ### DIFF M2-M3 START: zookeeper port is now 2281 instead of 2181 (corr ZOO_CFG_EXTRA: secureClientPort=2281) ##
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
+          ### DIFF M2-M3 END ###########################################################################################
+          ### DIFF M3-M4: extra listener EXTERNAL_SSL external clients can have encrypted transport on port 9191 ######
+          ### external clients can still have plain transport with listener EXTERNAL on port 9091 (will later be removed)###
           KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:SSL,EXTERNAL:PLAINTEXT, EXTERNAL_SSL:SSL
           KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-1:29091,EXTERNAL://localhost:9091,EXTERNAL_SSL://localhost:9191
           KAFKA_LISTENERS: INTERNAL://0.0.0.0:29091,EXTERNAL://0.0.0.0:9091,EXTERNAL_SSL://0.0.0.0:9191
+          ### DIFF M3-M4 END ###########################################################################################
           KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
@@ -147,6 +152,7 @@
           - zookeeper-3
         ports:
           - "9092:9092"
+          ### DIFF M3-M4: extra port for the EXTERNAL_SSL listener #####################################################
           - "9192:9192"
         ### DIFF M2-M3 START: volumes for keystore and truststore added ##################################################
         volumes:
@@ -157,9 +163,13 @@
           KAFKA_BROKER_ID: 2
           ### DIFF M2-M3 START: zookeeper port is now 2281 instead of 2181 (corr ZOO_CFG_EXTRA: secureClientPort=2281) ##
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
+          ### DIFF M2-M3 END ###########################################################################################
+          ### DIFF M3-M4: extra listener EXTERNAL_SSL external clients can have encrypted transport on port 9192 ######
+          ### external clients can still have plain transport with listener EXTERNAL on port 9092 (will later be removed)###
           KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:SSL,EXTERNAL:PLAINTEXT, EXTERNAL_SSL:SSL
           KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-2:29092,EXTERNAL://localhost:9092,EXTERNAL_SSL://localhost:9192
           KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092,EXTERNAL_SSL://0.0.0.0:9192
+          ### DIFF M3-M4 END ###########################################################################################
           KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
@@ -190,6 +200,7 @@
           - zookeeper-3
         ports:
           - "9093:9093"
+          ### DIFF M3-M4: extra port for the EXTERNAL_SSL listener #####################################################
           - "9193:9193"
         ### DIFF M2-M3 START: volumes for keystore and truststore added ##################################################
         volumes:
@@ -200,9 +211,13 @@
           KAFKA_BROKER_ID: 3
           ### DIFF M2-M3 START: zookeeper port is now 2281 instead of 2181 (corr ZOO_CFG_EXTRA: secureClientPort=2281) ##
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
+          ### DIFF M2-M3 END ###########################################################################################
+          ### DIFF M3-M4: extra listener EXTERNAL_SSL external clients can have encrypted transport on port 9193 ######
+          ### external clients can still have plain transport with listener EXTERNAL on port 9093 (will later be removed)###
           KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:SSL,EXTERNAL:PLAINTEXT, EXTERNAL_SSL:SSL
           KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-3:29093,EXTERNAL://localhost:9093,EXTERNAL_SSL://localhost:9193
           KAFKA_LISTENERS: INTERNAL://0.0.0.0:29093,EXTERNAL://0.0.0.0:9093,EXTERNAL_SSL://0.0.0.0:9193
+          ### DIFF M3-M4 END ###########################################################################################
           KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
