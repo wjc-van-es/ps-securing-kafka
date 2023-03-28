@@ -17,7 +17,7 @@ public class BasicSSLProducer {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "broker-1:9191,broker-2:9192,broker-3:9193");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9191,localhost:9192,localhost:9193");
 
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

@@ -122,6 +122,7 @@
           KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-1:29091,EXTERNAL://localhost:9091,EXTERNAL_SSL://localhost:9191
           KAFKA_LISTENERS: INTERNAL://0.0.0.0:29091,EXTERNAL://0.0.0.0:9091,EXTERNAL_SSL://0.0.0.0:9191
           ### DIFF M3-M4 END ###########################################################################################
+          ### org.apache.kafka.common.config.ConfigException: Only one of inter.broker.listener.name and security.inter.broker.protocol should be set.
           KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
@@ -134,13 +135,16 @@
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-1.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
           ### DIFF M2-M3 END ###########################################################################################
+          ### DIFF M3-M4: broker keystore & truststore for encryption of external client, inter-broker & zookeeper #####
           KAFKA_SSL_CLIENT_AUTH: none
           KAFKA_SSL_KEYSTORE_LOCATION: /kafka/security/broker-1.keystore.jks
           KAFKA_SSL_KEYSTORE_PASSWORD: password
           KAFKA_SSL_KEY_PASSWORD: password
           KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-1.truststore.jks
           KAFKA_SSL_TRUSTSTORE_PASSWORD: password
-          KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+          ### org.apache.kafka.common.config.ConfigException: Only one of inter.broker.listener.name and security.inter.broker.protocol should be set.
+          ### KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+          ### DIFF M3-M4 END: #################################################################################### #####
 
       broker-2:
         image: bsucaciu/kafka:2.6.0
@@ -170,6 +174,7 @@
           KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-2:29092,EXTERNAL://localhost:9092,EXTERNAL_SSL://localhost:9192
           KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092,EXTERNAL_SSL://0.0.0.0:9192
           ### DIFF M3-M4 END ###########################################################################################
+          ### org.apache.kafka.common.config.ConfigException: Only one of inter.broker.listener.name and security.inter.broker.protocol should be set.
           KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
@@ -182,13 +187,16 @@
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-2.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
           ### DIFF M2-M3 END ###########################################################################################
+          ### DIFF M3-M4: broker keystore & truststore for encryption of external client, inter-broker & zookeeper #####
           KAFKA_SSL_CLIENT_AUTH: none
           KAFKA_SSL_KEYSTORE_LOCATION: /kafka/security/broker-2.keystore.jks
           KAFKA_SSL_KEYSTORE_PASSWORD: password
           KAFKA_SSL_KEY_PASSWORD: password
           KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-2.truststore.jks
           KAFKA_SSL_TRUSTSTORE_PASSWORD: password
-          KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+          ### org.apache.kafka.common.config.ConfigException: Only one of inter.broker.listener.name and security.inter.broker.protocol should be set.
+          ### KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+          ### DIFF M3-M4 END: #################################################################################### #####
 
       broker-3:
         image: bsucaciu/kafka:2.6.0
@@ -218,6 +226,7 @@
           KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-3:29093,EXTERNAL://localhost:9093,EXTERNAL_SSL://localhost:9193
           KAFKA_LISTENERS: INTERNAL://0.0.0.0:29093,EXTERNAL://0.0.0.0:9093,EXTERNAL_SSL://0.0.0.0:9193
           ### DIFF M3-M4 END ###########################################################################################
+          ### org.apache.kafka.common.config.ConfigException: Only one of inter.broker.listener.name and security.inter.broker.protocol should be set.
           KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
@@ -230,10 +239,13 @@
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-3.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
           ### DIFF M2-M3 END ###########################################################################################
+          ### DIFF M3-M4: broker keystore & truststore for encryption of external client, inter-broker & zookeeper #####
           KAFKA_SSL_CLIENT_AUTH: none
           KAFKA_SSL_KEYSTORE_LOCATION: /kafka/security/broker-3.keystore.jks
           KAFKA_SSL_KEYSTORE_PASSWORD: password
           KAFKA_SSL_KEY_PASSWORD: password
           KAFKA_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-3.truststore.jks
           KAFKA_SSL_TRUSTSTORE_PASSWORD: password
-          KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+          ### org.apache.kafka.common.config.ConfigException: Only one of inter.broker.listener.name and security.inter.broker.protocol should be set.
+          ### KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+          ### DIFF M3-M4 END: #################################################################################### #####
