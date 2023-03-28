@@ -5,12 +5,15 @@
         image: zookeeper:3.6.2
         hostname: zookeeper-1
         container_name: zookeeper-1
+        ### DIFF M2-M3 START: volumes for keystore and truststore added ##################################################
         volumes:
             - ./security/keystore/zookeeper-1.keystore.jks:/security/zookeeper-1.keystore.jks
             - ./security/truststore/zookeeper-1.truststore.jks:/security/zookeeper-1.truststore.jks
+        ### DIFF M2-M3 END ################################################################################################
         environment:
           ZOO_MY_ID: 1
           ZOO_SERVERS: server.1=zookeeper-1:2888:3888;2181 server.2=zookeeper-2:2888:3888;2181 server.3=zookeeper-3:2888:3888;2181
+          ### DIFF M2-M3 START: extra zookeeper configs for mTLS added ###################################################
           ZOO_CFG_EXTRA: "sslQuorum=true
                           portUnification=false
                           serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory
@@ -27,17 +30,21 @@
                           ssl.keyStore.password=password
                           ssl.trustStore.location=/security/zookeeper-1.truststore.jks
                           ssl.trustStore.password=password"
+          ### DIFF M2-M3 END ###########################################################################################
 
       zookeeper-2:
         image: zookeeper:3.6.2
         hostname: zookeeper-2
         container_name: zookeeper-2
+        ### DIFF M2-M3 START: volumes for keystore and truststore added ##################################################
         volumes:
             - ./security/keystore/zookeeper-2.keystore.jks:/security/zookeeper-2.keystore.jks
             - ./security/truststore/zookeeper-2.truststore.jks:/security/zookeeper-2.truststore.jks
+        ### DIFF M2-M3 END #############################################################################################
         environment:
           ZOO_MY_ID: 2
           ZOO_SERVERS: server.1=zookeeper-1:2888:3888;2181 server.2=zookeeper-2:2888:3888;2181 server.3=zookeeper-3:2888:3888;2181
+          ### DIFF M2-M3 START: extra zookeeper configs for mTLS added ###################################################
           ZOO_CFG_EXTRA: "sslQuorum=true
                           portUnification=false
                           serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory
@@ -54,17 +61,21 @@
                           ssl.keyStore.password=password
                           ssl.trustStore.location=/security/zookeeper-2.truststore.jks
                           ssl.trustStore.password=password"
+          ### DIFF M2-M3 END ###########################################################################################
 
       zookeeper-3:
         image: zookeeper:3.6.2
         hostname: zookeeper-3
         container_name: zookeeper-3
+        ### DIFF M2-M3 START: volumes for keystore and truststore added ###############################################
         volumes:
             - ./security/keystore/zookeeper-3.keystore.jks:/security/zookeeper-3.keystore.jks
             - ./security/truststore/zookeeper-3.truststore.jks:/security/zookeeper-3.truststore.jks
+        ### DIFF M2-M3 END #############################################################################################
         environment:
           ZOO_MY_ID: 3
           ZOO_SERVERS: server.1=zookeeper-1:2888:3888;2181 server.2=zookeeper-2:2888:3888;2181 server.3=zookeeper-3:2888:3888;2181
+          ### DIFF M2-M3 START: extra zookeeper configs for mTLS added ###################################################
           ZOO_CFG_EXTRA: "sslQuorum=true
                           portUnification=false
                           serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory
@@ -81,6 +92,7 @@
                           ssl.keyStore.password=password
                           ssl.trustStore.location=/security/zookeeper-3.truststore.jks
                           ssl.trustStore.password=password"
+          ### DIFF M2-M3 END ###########################################################################################
 
       broker-1:
         image: bsucaciu/kafka:2.6.0
@@ -92,24 +104,30 @@
           - zookeeper-3
         ports:
           - "9091:9091"
+        ### DIFF M2-M3 START: volumes for keystore and truststore added ################################################
         volumes:
             - ./security/keystore/broker-1.keystore.jks:/kafka/security/broker-1.keystore.jks
             - ./security/truststore/broker-1.truststore.jks:/kafka/security/broker-1.truststore.jks
+        ### DIFF M2-M3 END #############################################################################################
         environment:
           KAFKA_BROKER_ID: 1
+          ### DIFF M2-M3 START: zookeeper port is now 2281 instead of 2181 (corr ZOO_CFG_EXTRA: secureClientPort=2281) ##
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
-          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-1:9091
-          KAFKA_LISTENERS: PLAINTEXT://broker-1:9091
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+          KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-1:29091,EXTERNAL://localhost:9091
+          KAFKA_LISTENERS: INTERNAL://0.0.0.0:29091,EXTERNAL://0.0.0.0:9091
+          KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+          ### DIFF M2-M3 START: extra kafka configs for zookeeper mTLS added #############################################
           KAFKA_ZOOKEEPER_SSL_CLIENT_ENABLE: "true"
           KAFKA_ZOOKEEPER_CLIENT_CNXN_SOCKET: org.apache.zookeeper.ClientCnxnSocketNetty
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_LOCATION: /kafka/security/broker-1.keystore.jks
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-1.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
+          ### DIFF M2-M3 END ###########################################################################################
 
       broker-2:
         image: bsucaciu/kafka:2.6.0
@@ -121,18 +139,23 @@
           - zookeeper-3
         ports:
           - "9092:9092"
+        ### DIFF M2-M3 START: volumes for keystore and truststore added ##################################################
         volumes:
             - ./security/keystore/broker-2.keystore.jks:/kafka/security/broker-2.keystore.jks
             - ./security/truststore/broker-2.truststore.jks:/kafka/security/broker-2.truststore.jks
+        ### DIFF M2-M3 END #############################################################################################
         environment:
           KAFKA_BROKER_ID: 2
+          ### DIFF M2-M3 START: zookeeper port is now 2281 instead of 2181 (corr ZOO_CFG_EXTRA: secureClientPort=2281) ##
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
-          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-2:9092
-          KAFKA_LISTENERS: PLAINTEXT://broker-2:9092
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+          KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-2:29092,EXTERNAL://localhost:9092
+          KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092
+          KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+          ### DIFF M2-M3 START: extra kafka configs for zookeeper mTLS added #############################################
           KAFKA_ZOOKEEPER_SSL_CLIENT_ENABLE: "true"
           KAFKA_ZOOKEEPER_SASL_CLIENT_ENABLE: "false"
           KAFKA_ZOOKEEPER_CLIENT_CNXN_SOCKET: org.apache.zookeeper.ClientCnxnSocketNetty
@@ -140,6 +163,7 @@
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-2.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
+          ### DIFF M2-M3 END ###########################################################################################
 
       broker-3:
         image: bsucaciu/kafka:2.6.0
@@ -151,21 +175,27 @@
           - zookeeper-3
         ports:
           - "9093:9093"
+        ### DIFF M2-M3 START: volumes for keystore and truststore added ##################################################
         volumes:
             - ./security/keystore/broker-3.keystore.jks:/kafka/security/broker-3.keystore.jks
             - ./security/truststore/broker-3.truststore.jks:/kafka/security/broker-3.truststore.jks
+        ### DIFF M2-M3 END #############################################################################################
         environment:
           KAFKA_BROKER_ID: 3
+          ### DIFF M2-M3 START: zookeeper port is now 2281 instead of 2181 (corr ZOO_CFG_EXTRA: secureClientPort=2281) ##
           KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2281,zookeeper-2:2281,zookeeper-3:2281
-          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-3:9093
-          KAFKA_LISTENERS: PLAINTEXT://broker-3:9093
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+          KAFKA_ADVERTISED_LISTENERS: INTERNAL://broker-3:29093,EXTERNAL://localhost:9093
+          KAFKA_LISTENERS: INTERNAL://0.0.0.0:29093,EXTERNAL://0.0.0.0:9093
+          KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
           KAFKA_DEFAULT_REPLICATION_FACTOR: 3
           KAFKA_MIN_INSYNC_REPLICAS: 2
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+          ### DIFF M2-M3 START: extra kafka configs for zookeeper mTLS added #############################################
           KAFKA_ZOOKEEPER_SSL_CLIENT_ENABLE: "true"
           KAFKA_ZOOKEEPER_CLIENT_CNXN_SOCKET: org.apache.zookeeper.ClientCnxnSocketNetty
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_LOCATION: /kafka/security/broker-3.keystore.jks
           KAFKA_ZOOKEEPER_SSL_KEYSTORE_PASSWORD: password
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /kafka/security/broker-3.truststore.jks
           KAFKA_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: password
+          ### DIFF M2-M3 END ###########################################################################################

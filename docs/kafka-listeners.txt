@@ -1,0 +1,45 @@
+We have a faulty kafka listener configuration in docker-compose.yaml that we fixed provisionally by editing
+cat /etc/hosts:
+willem@linux-laptop:~/git/ps-securing-kafka$ cat /etc/hosts
+127.0.0.1       localhost
+# Adding broker-1, broker-2 & broker-3 for PS-securing-kafka
+127.0.0.1   broker-1
+127.0.0.1   broker-2
+127.0.0.1   broker-3
+127.0.1.1       linux-laptop
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+We commented out the 3 lines with broker-n:
+willem@linux-laptop:~/git/ps-securing-kafka$ cat /etc/hosts
+127.0.0.1       localhost
+# Adding broker-1, broker-2 & broker-3 for PS-securing-kafka
+# 127.0.0.1   broker-1
+# 127.0.0.1   broker-2
+# 127.0.0.1   broker-3
+127.0.1.1       linux-laptop
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+willem@linux-laptop:~/git/ps-securing-kafka$
+
+Now we have to fix the Kafka listener configuration in docker-compose.yaml
+We make a backup from the original one: docker-compose.yaml.ori.20230304
+
+Then we divide the single listener in two an INTERNAL and an EXTERNAL both mapped to the PLAINTEXT protocol as starting
+point. All this is done in docker-compose.yaml
+
+Moreover, the BOOTSTRAP_SERVERS_CONFIG of both
+secure-clients/src/main/java/com/pluralsight/kafka/security/encryption/BasicConsumer.java
+and
+secure-clients/src/main/java/com/pluralsight/kafka/security/encryption/BasicProducer.java
+are now mapped to the EXTERNAL advertised listener

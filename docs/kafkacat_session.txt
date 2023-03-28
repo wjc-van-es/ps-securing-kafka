@@ -1,0 +1,399 @@
+willem@linux-laptop:~$ sudo vi /etc/hosts
+[sudo] password for willem:
+willem@linux-laptop:~$ vim /etc/hosts
+Command 'vim' not found, but can be installed with:
+sudo apt install vim         # version 2:8.2.3995-1ubuntu2.3, or
+sudo apt install vim-tiny    # version 2:8.2.3995-1ubuntu2.3
+sudo apt install neovim      # version 0.6.1-3
+sudo apt install vim-athena  # version 2:8.2.3995-1ubuntu2.3
+sudo apt install vim-gtk3    # version 2:8.2.3995-1ubuntu2.3
+sudo apt install vim-nox     # version 2:8.2.3995-1ubuntu2.3
+willem@linux-laptop:~$ sudo apt install vim
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libflashrom1 libftdi1-2 libllvm13 libllvm13:i386
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  vim-runtime
+Suggested packages:
+  ctags vim-doc vim-scripts
+The following NEW packages will be installed:
+  vim vim-runtime
+0 upgraded, 2 newly installed, 0 to remove and 8 not upgraded.
+Need to get 8.552 kB of archives.
+After this operation, 37,6 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://nl.archive.ubuntu.com/ubuntu jammy-updates/main amd64 vim-runtime all 2:8.2.3995-1ubuntu2.3 [6.825 kB]
+Get:2 http://nl.archive.ubuntu.com/ubuntu jammy-updates/main amd64 vim amd64 2:8.2.3995-1ubuntu2.3 [1.727 kB]
+Fetched 8.552 kB in 6s (1.505 kB/s)
+Selecting previously unselected package vim-runtime.
+(Reading database ... 429470 files and directories currently installed.)
+Preparing to unpack .../vim-runtime_2%3a8.2.3995-1ubuntu2.3_all.deb ...
+Adding 'diversion of /usr/share/vim/vim82/doc/help.txt to /usr/share/vim/vim82/doc/help.txt.vim-tiny by vim-runtime'
+Adding 'diversion of /usr/share/vim/vim82/doc/tags to /usr/share/vim/vim82/doc/tags.vim-tiny by vim-runtime'
+Unpacking vim-runtime (2:8.2.3995-1ubuntu2.3) ...
+Selecting previously unselected package vim.
+Preparing to unpack .../vim_2%3a8.2.3995-1ubuntu2.3_amd64.deb ...
+Unpacking vim (2:8.2.3995-1ubuntu2.3) ...
+Setting up vim-runtime (2:8.2.3995-1ubuntu2.3) ...
+Setting up vim (2:8.2.3995-1ubuntu2.3) ...
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vim (vim) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vimdiff (vimdiff) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rvim (rvim) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rview (rview) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vi (vi) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/view (view) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/ex (ex) in auto mode
+Processing triggers for man-db (2.10.2-1) ...
+willem@linux-laptop:~$ sudo vim /etc/hosts
+willem@linux-laptop:~$ cat /etc/hosts
+127.0.0.1	localhost
+# Adding broker-1, broker-2 & broker-3 for PS-securing-kafka
+# 127.0.0.1   broker-1
+# 127.0.0.1   broker-2
+# 127.0.0.1   broker-3
+127.0.1.1	linux-laptop
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+willem@linux-laptop:~$ apt-get install kcat
+E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+willem@linux-laptop:~$ sudo apt-get install kcat
+[sudo] password for willem:
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package kcat
+willem@linux-laptop:~$ sudo apt-get install kafkacat
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libflashrom1 libftdi1-2 libllvm13 libllvm13:i386
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  librdkafka1
+The following NEW packages will be installed:
+  kafkacat librdkafka1
+0 upgraded, 2 newly installed, 0 to remove and 8 not upgraded.
+Need to get 662 kB of archives.
+After this operation, 1.944 kB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://nl.archive.ubuntu.com/ubuntu jammy/universe amd64 librdkafka1 amd64 1.8.0-1build1 [633 kB]
+Get:2 http://nl.archive.ubuntu.com/ubuntu jammy/universe amd64 kafkacat amd64 1.6.0-1 [29,0 kB]
+Fetched 662 kB in 0s (5.686 kB/s)
+Selecting previously unselected package librdkafka1:amd64.
+(Reading database ... 431411 files and directories currently installed.)
+Preparing to unpack .../librdkafka1_1.8.0-1build1_amd64.deb ...
+Unpacking librdkafka1:amd64 (1.8.0-1build1) ...
+Selecting previously unselected package kafkacat.
+Preparing to unpack .../kafkacat_1.6.0-1_amd64.deb ...
+Unpacking kafkacat (1.6.0-1) ...
+Setting up librdkafka1:amd64 (1.8.0-1build1) ...
+Setting up kafkacat (1.6.0-1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.1) ...
+willem@linux-laptop:~$ kcat -b localhost:9091 -L
+Command 'kcat' not found, but there are 18 similar ones.
+willem@linux-laptop:~$ kafkacat -b localhost:9091 -L
+Metadata for all topics (from broker 1: localhost:9091/1):
+ 3 brokers:
+  broker 2 at localhost:9092
+  broker 3 at localhost:9093
+  broker 1 at localhost:9091 (controller)
+ 2 topics:
+  topic "basic-topic" with 1 partitions:
+    partition 0, leader 3, replicas: 3,1,2, isrs: 3,1,2
+  topic "__consumer_offsets" with 50 partitions:
+    partition 0, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 1, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 2, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 3, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 4, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 5, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 6, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 7, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 8, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 9, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 10, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 11, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 12, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 13, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 14, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 15, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 16, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 17, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 18, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 19, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 20, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 21, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 22, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 23, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 24, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 25, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 26, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 27, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 28, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 29, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 30, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 31, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 32, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 33, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 34, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 35, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 36, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 37, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 38, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 39, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 40, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 41, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 42, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 43, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 44, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 45, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 46, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 47, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 48, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 49, leader 1, replicas: 1,3,2, isrs: 1,3,2
+willem@linux-laptop:~$ kafkacat -b localhost:9092 -L
+Metadata for all topics (from broker 2: localhost:9092/2):
+ 3 brokers:
+  broker 2 at localhost:9092
+  broker 3 at localhost:9093
+  broker 1 at localhost:9091 (controller)
+ 2 topics:
+  topic "basic-topic" with 1 partitions:
+    partition 0, leader 3, replicas: 3,1,2, isrs: 3,1,2
+  topic "__consumer_offsets" with 50 partitions:
+    partition 0, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 1, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 2, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 3, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 4, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 5, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 6, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 7, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 8, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 9, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 10, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 11, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 12, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 13, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 14, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 15, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 16, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 17, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 18, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 19, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 20, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 21, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 22, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 23, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 24, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 25, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 26, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 27, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 28, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 29, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 30, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 31, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 32, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 33, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 34, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 35, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 36, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 37, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 38, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 39, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 40, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 41, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 42, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 43, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 44, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 45, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 46, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 47, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 48, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 49, leader 1, replicas: 1,3,2, isrs: 1,3,2
+willem@linux-laptop:~$ kafkacat -b localhost:9093 -L
+Metadata for all topics (from broker 3: localhost:9093/3):
+ 3 brokers:
+  broker 2 at localhost:9092
+  broker 3 at localhost:9093
+  broker 1 at localhost:9091 (controller)
+ 2 topics:
+  topic "basic-topic" with 1 partitions:
+    partition 0, leader 3, replicas: 3,1,2, isrs: 3,1,2
+  topic "__consumer_offsets" with 50 partitions:
+    partition 0, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 1, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 2, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 3, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 4, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 5, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 6, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 7, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 8, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 9, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 10, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 11, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 12, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 13, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 14, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 15, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 16, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 17, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 18, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 19, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 20, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 21, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 22, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 23, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 24, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 25, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 26, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 27, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 28, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 29, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 30, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 31, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 32, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 33, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 34, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 35, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 36, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 37, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 38, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 39, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 40, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 41, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 42, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 43, leader 1, replicas: 1,3,2, isrs: 1,3,2
+    partition 44, leader 2, replicas: 2,1,3, isrs: 2,1,3
+    partition 45, leader 3, replicas: 3,1,2, isrs: 3,1,2
+    partition 46, leader 1, replicas: 1,2,3, isrs: 1,2,3
+    partition 47, leader 2, replicas: 2,3,1, isrs: 2,3,1
+    partition 48, leader 3, replicas: 3,2,1, isrs: 3,2,1
+    partition 49, leader 1, replicas: 1,3,2, isrs: 1,3,2
+willem@linux-laptop:~$ kafkacat -b localhost:9094 -L
+%3|1677964284.230|FAIL|rdkafka#producer-1| [thrd:localhost:9094/bootstrap]: localhost:9094/bootstrap: Connect to ipv4#127.0.0.1:9094 failed: Connection refused (after 0ms in state CONNECT)
+%3|1677964285.230|FAIL|rdkafka#producer-1| [thrd:localhost:9094/bootstrap]: localhost:9094/bootstrap: Connect to ipv4#127.0.0.1:9094 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)
+% ERROR: Failed to acquire metadata: Local: Broker transport failure
+willem@linux-laptop:~$ kafkacat -b localhost:9091 -C -t basic-topic
+be1ffd81-c307-44c4-bd56-fd2893803c37
+7fff63c7-deb0-4e83-b6a7-ded563108a61
+85bbc297-ff9d-43e7-aa1a-46d436691bec
+6275be44-98a4-463e-a3db-ae97f686bef7
+025cfa17-bde9-4035-9fbc-a6dd5aa09e0b
+252922fb-827b-44b8-9eb4-b39e5237a338
+af70cf1a-d1bd-4f9e-9dcd-d28cbba4b547
+72240464-6cc9-42ae-b33b-73569065645d
+06372410-3783-43ff-8189-178bb48cebff
+c12a3078-508f-4e63-99c7-0231c5c990c5
+e698793a-b283-448b-8550-80a70d5e6767
+eccac347-605e-4418-95b2-c2da1d69015b
+085d0de7-dd42-48a6-a56d-e95f5481d5d1
+bee30bda-7f16-44dc-a33f-aab30296cb23
+% Reached end of topic basic-topic [0] at offset 14
+^[[A^[[B^Cwillem@linux-laptop:~$ kafkacat -b localhost:9091 -C -t sys-log
+% ERROR: Topic sys-log error: Broker: Unknown topic or partition
+willem@linux-laptop:~$ kafkacat -b localhost:9092 -C -t basic-topic
+be1ffd81-c307-44c4-bd56-fd2893803c37
+7fff63c7-deb0-4e83-b6a7-ded563108a61
+85bbc297-ff9d-43e7-aa1a-46d436691bec
+6275be44-98a4-463e-a3db-ae97f686bef7
+025cfa17-bde9-4035-9fbc-a6dd5aa09e0b
+252922fb-827b-44b8-9eb4-b39e5237a338
+af70cf1a-d1bd-4f9e-9dcd-d28cbba4b547
+72240464-6cc9-42ae-b33b-73569065645d
+06372410-3783-43ff-8189-178bb48cebff
+c12a3078-508f-4e63-99c7-0231c5c990c5
+e698793a-b283-448b-8550-80a70d5e6767
+eccac347-605e-4418-95b2-c2da1d69015b
+085d0de7-dd42-48a6-a56d-e95f5481d5d1
+bee30bda-7f16-44dc-a33f-aab30296cb23
+% Reached end of topic basic-topic [0] at offset 14
+^Cwillem@linux-laptop:~$ kafkacat -b localhost:9093 -C -t basic-topic
+be1ffd81-c307-44c4-bd56-fd2893803c37
+7fff63c7-deb0-4e83-b6a7-ded563108a61
+85bbc297-ff9d-43e7-aa1a-46d436691bec
+6275be44-98a4-463e-a3db-ae97f686bef7
+025cfa17-bde9-4035-9fbc-a6dd5aa09e0b
+252922fb-827b-44b8-9eb4-b39e5237a338
+af70cf1a-d1bd-4f9e-9dcd-d28cbba4b547
+72240464-6cc9-42ae-b33b-73569065645d
+06372410-3783-43ff-8189-178bb48cebff
+c12a3078-508f-4e63-99c7-0231c5c990c5
+e698793a-b283-448b-8550-80a70d5e6767
+eccac347-605e-4418-95b2-c2da1d69015b
+085d0de7-dd42-48a6-a56d-e95f5481d5d1
+bee30bda-7f16-44dc-a33f-aab30296cb23
+% Reached end of topic basic-topic [0] at offset 14
+
+### Again with started Java producer:
+^Cwillem@linux-laptop:~$ kafkacat -b localhost:9093 -C -t basic-topic
+be1ffd81-c307-44c4-bd56-fd2893803c37
+7fff63c7-deb0-4e83-b6a7-ded563108a61
+85bbc297-ff9d-43e7-aa1a-46d436691bec
+6275be44-98a4-463e-a3db-ae97f686bef7
+025cfa17-bde9-4035-9fbc-a6dd5aa09e0b
+252922fb-827b-44b8-9eb4-b39e5237a338
+af70cf1a-d1bd-4f9e-9dcd-d28cbba4b547
+72240464-6cc9-42ae-b33b-73569065645d
+06372410-3783-43ff-8189-178bb48cebff
+c12a3078-508f-4e63-99c7-0231c5c990c5
+e698793a-b283-448b-8550-80a70d5e6767
+eccac347-605e-4418-95b2-c2da1d69015b
+085d0de7-dd42-48a6-a56d-e95f5481d5d1
+bee30bda-7f16-44dc-a33f-aab30296cb23
+866010b4-1518-48af-b142-e605acfe4fde
+864d0283-19ed-4eab-9d1a-3d12965d102f
+b770b0ea-0b17-4105-b47a-ccf92c31c215
+cf9b578b-a3d2-4147-a774-19f26ff0fec9
+89dcd565-b175-447b-8c1b-6d1017f1297e
+9357d5c8-fdb2-4dab-935f-5d65b6873719
+f9bdbab2-202d-4b40-a6bb-7010402c9acc
+bf6fcacf-021b-421c-a02b-b7b24458355a
+285b6358-60a7-4f7f-938b-46a0a9e2902d
+06f235d3-90f6-479e-b13c-11191e5de220
+bce99bda-a6e3-464f-bac7-25c1bbe08867
+% Reached end of topic basic-topic [0] at offset 25
+9274c9d4-06b9-42de-8977-954d879d3245
+% Reached end of topic basic-topic [0] at offset 26
+2a7f9aa2-17a9-49c1-a347-bbb0e675ec54
+% Reached end of topic basic-topic [0] at offset 27
+3daeb509-f149-45df-a4ba-ba7a24b241c2
+% Reached end of topic basic-topic [0] at offset 28
+d8187a54-2f7c-4ba3-93ff-6691d66dd532
+% Reached end of topic basic-topic [0] at offset 29
+715bbb6d-8b4d-49ad-a8b6-4b398e496e04
+% Reached end of topic basic-topic [0] at offset 30
+46dc3d98-ebc1-4eb9-9f7b-999128a0a6ab
+% Reached end of topic basic-topic [0] at offset 31
+8a3c454f-1679-4960-8de3-027db78ff43a
+% Reached end of topic basic-topic [0] at offset 32
+72c83358-4eeb-48fe-aa1a-3113fd6fec48
+% Reached end of topic basic-topic [0] at offset 33
+bf344e91-08c0-490f-8e32-fd3f330bb569
+% Reached end of topic basic-topic [0] at offset 34
+47cac26c-fa36-4186-8680-2f6296d27171
+% Reached end of topic basic-topic [0] at offset 35
+6904ebb1-9b2c-4a38-8d47-07be662221ae
+% Reached end of topic basic-topic [0] at offset 36
+61d1d809-f98d-4c19-94dc-451c9f1fa338
+% Reached end of topic basic-topic [0] at offset 37
+42f26409-29dc-4692-91bb-d69f5fb71124
+% Reached end of topic basic-topic [0] at offset 38
+c6d3175a-4a65-4513-8f79-951b91f3cbdb
+% Reached end of topic basic-topic [0] at offset 39
+^Cwillem@linux-laptop:~$
+
+
+
